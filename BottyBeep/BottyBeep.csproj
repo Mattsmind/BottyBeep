@@ -10,4 +10,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Admin\Bot\" />
+    <Folder Include="Admin\Server\" />
+    <Folder Include="Admin\User\" />
+    <Folder Include="Modules\" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ namespace BottyBeep
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine(Core.ConfigHandler.bot.botToken);
         }
     }
 }
