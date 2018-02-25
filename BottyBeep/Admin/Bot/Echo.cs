@@ -10,7 +10,7 @@ namespace BottyBeep.Admin.Bot
     public class Echo : ModuleBase<SocketCommandContext>
     {
         [Command("echo"), Alias("say")]
-        public async Task EchoAsync(string message)
+        public async Task EchoAsync([Remainder]string message)
         {
             await ReplyAsync(message);
         }

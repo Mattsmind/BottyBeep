@@ -27,7 +27,7 @@ namespace BottyBeep.Core
         {
             var msg = s as SocketUserMessage;
 
-            if (msg == null)
+            if (msg == null || msg.Author.IsBot)
                 return;
 
             var context = new SocketCommandContext(_client, msg);
