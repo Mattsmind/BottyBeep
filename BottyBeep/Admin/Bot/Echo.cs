@@ -13,7 +13,7 @@ namespace BottyBeep.Admin.Bot
         [RequireOwner]
         public async Task EchoAsync([Remainder]string message)
         {
-            await ReplyAsync(message);
+            await Context.Channel.SendMessageAsync(message);
         }
     }
 }
