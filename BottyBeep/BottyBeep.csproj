@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Admin\Bot\" />
     <Folder Include="Admin\Server\" />
     <Folder Include="Admin\User\" />
     <Folder Include="Modules\" />
