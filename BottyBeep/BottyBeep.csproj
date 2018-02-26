@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Admin\Server\" />
+    <Folder Include="Admin\Channel\" />
     <Folder Include="Admin\User\" />
     <Folder Include="Modules\" />
   </ItemGroup>
