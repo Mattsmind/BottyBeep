@@ -12,7 +12,7 @@ namespace BottyBeep.Admin.Server
         [RequireBotPermission(GuildPermission.BanMembers)]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [Command("permban")]
-        public async Task BanUserAsync(IGuildUser user, string reason = "No Reason Given.")
+        public async Task BanUserAsync(IGuildUser user, [Remainder] string reason = "No Reason Given.")
         {
             EmbedBuilder builder = new EmbedBuilder();
 
@@ -28,7 +28,7 @@ namespace BottyBeep.Admin.Server
         [RequireBotPermission(GuildPermission.BanMembers)]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [Command("tempban")]
-        public async Task TempBanAsync(IGuildUser user, string reason)
+        public async Task TempBanAsync(IGuildUser user, [Remainder] string reason = "No Reason Given.")
         {
             EmbedBuilder builder = new EmbedBuilder();
 
@@ -44,7 +44,7 @@ namespace BottyBeep.Admin.Server
         [RequireBotPermission(GuildPermission.BanMembers)]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [Command("unban")]
-        public async Task UnbanAsync(IGuildUser user)
+        public async Task UnbanAsync(IUser user)
         {
             EmbedBuilder builder = new EmbedBuilder();
 
@@ -53,7 +53,7 @@ namespace BottyBeep.Admin.Server
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
 
-            await user.Guild.RemoveBanAsync(user);
+            await Context.Guild.RemoveBanAsync(user);
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
