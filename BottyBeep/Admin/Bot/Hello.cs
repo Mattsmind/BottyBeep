@@ -19,7 +19,7 @@ namespace BottyBeep.Admin.Bot
                 .WithDescription(String.Format("Hello, {0}! My code repository is located at {1}", Context.User.Mention, myRepo))
                 .WithColor(new Color(0.123f,0.932f,0.0f));
 
-            await ReplyAsync("", false, builder.Build());
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }

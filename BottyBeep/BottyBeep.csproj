@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Admin\Channel\" />
-    <Folder Include="Admin\User\" />
     <Folder Include="Modules\" />
   </ItemGroup>
 

@@ -9,8 +9,9 @@ namespace BottyBeep.Admin.Bot
 {
     public class Ping : ModuleBase<SocketCommandContext>
     {
+        [RequireBotPermission(GuildPermission.SendMessages)]
+        [RequireUserPermission(GuildPermission.Administrator)]
         [Command("ping")]
-        [RequireOwner]
         public async Task PingAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -19,7 +20,7 @@ namespace BottyBeep.Admin.Bot
                 .WithColor(Color.DarkerGrey)
                 .WithDescription($"PONG! **{Context.Client.Latency}ms**");
 
-            await ReplyAsync("", false, builder.Build());
+            await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
     }
 }
