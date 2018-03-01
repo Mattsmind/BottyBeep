@@ -17,10 +17,5 @@ namespace BottyBeep.Core
             _client = client;
             _client.Log += _logger.LogAsync;
         }
-
-        internal EventHandler(CommandHandler handler)
-        {
-
-        }
     }
 }
