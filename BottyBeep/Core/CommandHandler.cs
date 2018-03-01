@@ -38,7 +38,7 @@ namespace BottyBeep.Core
                 var result = await _service.ExecuteAsync(context, argPos);
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
                 {
-                    //Call the BotLogger system here once implemented.
+                    //Call the LogHandler system. LogErrorAsync.
                     Console.WriteLine(result.ErrorReason);
                 }
             }

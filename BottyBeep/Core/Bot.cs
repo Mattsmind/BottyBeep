@@ -11,6 +11,7 @@ namespace BottyBeep.Core
     {
         DiscordSocketClient _client;
         CommandHandler _handler;
+        EventHandler _events;
 
         public async Task StartAsync()
         {
@@ -22,7 +23,8 @@ namespace BottyBeep.Core
                 LogLevel = LogSeverity.Verbose
             });
 
-            _client.Log += Log;
+            _events = new EventHandler(_client);
+            //_client.Log += Log;
 
             await _client.LoginAsync(TokenType.Bot, botToken);
             await _client.StartAsync();
@@ -31,13 +33,6 @@ namespace BottyBeep.Core
             await _handler.InitializeAsync(_client);
 
             await Task.Delay(-1);
-        }
-
-        private Task Log(LogMessage msg)
-        {
-            //Call Bot Logger here when implemented.
-            Console.WriteLine(msg.Message);
-            return Task.CompletedTask;
         }
     }
 }
