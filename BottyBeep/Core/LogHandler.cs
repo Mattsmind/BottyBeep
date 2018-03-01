@@ -8,32 +8,35 @@ namespace BottyBeep.Core
 {
     class LogHandler
     {
-        //constructor?
-
-        //general logger
         public async Task LogAsync(LogMessage msg)
         {
-            Console.WriteLine(msg.Message);
-            await Task.CompletedTask;
+            if (msg.Exception != null)
+            {
+                await LogErrorAsync(msg.Exception.Message);
+            }
+            else
+            {
+                await LogAsync(msg.Source, msg.Message);
+            }
         }
 
         public async Task LogAsync(string source, string msg)
         {
-            
+            Console.WriteLine("[{0}] {1}:{2}", DateTime.Now.ToLongTimeString(), source, msg);
+            Console.ResetColor();
             await Task.CompletedTask;
         }
 
-        //log error message
-        public async Task LogErrorAsync()
+        public async Task LogErrorAsync(string msg)
         {
-            await Task.CompletedTask;
+            Console.ForegroundColor = ConsoleColor.Red;
+            await LogAsync("ERROR", msg);
         }
 
-        //log commands
-        public async Task LogCommandsAsync()
+        public async Task LogCommandsAsync(string user, string command)
         {
-            await Task.CompletedTask;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            await LogAsync(user, command);
         }
-
     }
 }

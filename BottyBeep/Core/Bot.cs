@@ -24,7 +24,6 @@ namespace BottyBeep.Core
             });
 
             _events = new EventHandler(_client);
-            //_client.Log += Log;
 
             await _client.LoginAsync(TokenType.Bot, botToken);
             await _client.StartAsync();

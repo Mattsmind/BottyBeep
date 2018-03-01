@@ -12,6 +12,7 @@ namespace BottyBeep.Core
     {
         DiscordSocketClient _client;
         CommandService _service;
+        LogHandler _logger = new LogHandler();
 
         public async Task InitializeAsync(DiscordSocketClient client)
         {
@@ -38,8 +39,11 @@ namespace BottyBeep.Core
                 var result = await _service.ExecuteAsync(context, argPos);
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
                 {
-                    //Call the LogHandler system. LogErrorAsync.
-                    Console.WriteLine(result.ErrorReason);
+                    await _logger.LogErrorAsync(result.ErrorReason);
+                }
+                else if (result.IsSuccess)
+                {
+                    await _logger.LogCommandsAsync(context.User.Username, context.Message.Content);
                 }
             }
         }
