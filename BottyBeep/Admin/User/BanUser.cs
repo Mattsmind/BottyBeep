@@ -20,6 +20,8 @@ namespace BottyBeep.Admin.Server
                 .WithDescription(String.Format("___**{0} has been permanently banned by {1}**___\n**REASON:** {2}", user.Mention, Context.User.Username, reason))
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
+
+            await MessageUserNotice(user, builder);
                        
             await user.Guild.AddBanAsync(user, 5, reason);
             await Context.Channel.SendMessageAsync("", false, builder.Build());
@@ -27,7 +29,7 @@ namespace BottyBeep.Admin.Server
 
         [RequireBotPermission(GuildPermission.BanMembers)]
         [RequireUserPermission(GuildPermission.BanMembers)]
-        [Command("tempban")]
+        [Command("tempban"), Alias("ban")]
         public async Task TempBanAsync(IGuildUser user, [Remainder] string reason = "No Reason Given.")
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -37,6 +39,8 @@ namespace BottyBeep.Admin.Server
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
 
+            await MessageUserNotice(user, builder);
+
             await user.Guild.AddBanAsync(user, 0, reason);
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
@@ -44,17 +48,35 @@ namespace BottyBeep.Admin.Server
         [RequireBotPermission(GuildPermission.BanMembers)]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [Command("unban")]
-        public async Task UnbanAsync(IUser user)
+        public async Task UnbanAsync(string user)
         {
+            var banlist = await Context.Guild.GetBansAsync();
             EmbedBuilder builder = new EmbedBuilder();
 
             builder.WithTitle("BAN REMOVAL NOTICE")
-                .WithDescription(String.Format("___**{0} has been unbanned by {1}**___", user.Mention, Context.User.Username))
+                .WithDescription(String.Format("___**{0} has been unbanned by {1}**___", user, Context.User.Username))
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
 
-            await Context.Guild.RemoveBanAsync(user);
-            await Context.Channel.SendMessageAsync("", false, builder.Build());
+            foreach (var b in banlist)
+            {
+                if (b.User.Username == user)
+                {
+                    await Context.Guild.RemoveBanAsync(b.User as IUser);
+                    var msgUser = await b.User.GetOrCreateDMChannelAsync();
+                    await msgUser.SendMessageAsync("", false, builder.Build());
+                    await msgUser.CloseAsync();
+                    await Context.Channel.SendMessageAsync("", false, builder.Build());
+                }
+            }
+        }
+
+        // This probably should go in the Utilities 
+        private async Task MessageUserNotice(IGuildUser user, EmbedBuilder builder)
+        {
+            var msgUser = await user.GetOrCreateDMChannelAsync();
+            await msgUser.SendMessageAsync("", false, builder.Build());
+            await msgUser.CloseAsync();
         }
     }
 }
