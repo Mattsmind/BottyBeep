@@ -124,6 +124,7 @@ namespace BottyBeep.Modules.Toys
                     break;
 
                 default:
+                    result = "Only MrMattsmind knows.";
                     break;
 
             }
