@@ -12,7 +12,7 @@ namespace BottyBeep.Admin.Server
         [RequireBotPermission(GuildPermission.BanMembers)]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [Command("permban")]
-        public async Task BanUserAsync(IGuildUser user, [Remainder] string reason = "No Reason Given.")
+        public async Task BanUserAsync(IGuildUser user, int daysToPurge = 5, [Remainder] string reason = "No Reason Given.")
         {
             EmbedBuilder builder = new EmbedBuilder();
 
@@ -23,7 +23,7 @@ namespace BottyBeep.Admin.Server
 
             await MessageUserNotice(user, builder);
                        
-            await user.Guild.AddBanAsync(user, 5, reason);
+            await user.Guild.AddBanAsync(user, daysToPurge, reason);
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
 
@@ -63,14 +63,13 @@ namespace BottyBeep.Admin.Server
                 if (b.User.Username == user)
                 {
                     await Context.Guild.RemoveBanAsync(b.User as IUser);
-                    await MessageUserNotice(b.User, builder);
                     await Context.Channel.SendMessageAsync("", false, builder.Build());
                 }
             }
         }
 
         // This probably should go in the Utilities 
-        private async Task MessageUserNotice(IUser user, EmbedBuilder builder)
+        private async Task MessageUserNotice(IGuildUser user, EmbedBuilder builder)
         {
             var msgUser = await user.GetOrCreateDMChannelAsync();
             await msgUser.SendMessageAsync("", false, builder.Build());
