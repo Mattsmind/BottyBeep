@@ -39,8 +39,9 @@ namespace BottyBeep.Core
                     await _logger.LogErrorAsync(result.ErrorReason);
                 }
                 else if (result.IsSuccess)
-                {
+                { 
                     await _logger.LogCommandsAsync(context.User.Username, context.Message.Content);
+                    await msg.DeleteAsync();
                 }
             }
         }
