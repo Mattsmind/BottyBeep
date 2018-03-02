@@ -17,7 +17,7 @@ namespace BottyBeep.Admin.Server
             EmbedBuilder builder = new EmbedBuilder();
 
             builder.WithTitle("PERM BAN NOTICE")
-                .WithDescription(String.Format("___**{0} has been permanently banned by {1}**___\n**REASON:** {2}", user.Mention, Context.User.Username, reason))
+                .WithDescription(String.Format("_{0} has been permanently banned by {1}_\n**REASON:** {2}", user.Mention, Context.User.Username, reason))
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
 
@@ -35,7 +35,7 @@ namespace BottyBeep.Admin.Server
             EmbedBuilder builder = new EmbedBuilder();
 
             builder.WithTitle("BAN NOTICE")
-                .WithDescription(String.Format("___**{0} has been temporarly banned by {1}**___\n**REASON:** {2}", user.Mention, Context.User.Username, reason))
+                .WithDescription(String.Format("_{0} has been temporarly banned by **{1}**_\n**REASON:** {2}", user.Mention, Context.User.Username, reason))
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
 
@@ -54,7 +54,7 @@ namespace BottyBeep.Admin.Server
             EmbedBuilder builder = new EmbedBuilder();
 
             builder.WithTitle("BAN REMOVAL NOTICE")
-                .WithDescription(String.Format("___**{0} has been unbanned by {1}**___", user, Context.User.Username))
+                .WithDescription(String.Format("_{0} has been unbanned by **{1}**_", user, Context.User.Username))
                 .WithCurrentTimestamp()
                 .WithColor(Color.DarkRed);
 
@@ -63,16 +63,14 @@ namespace BottyBeep.Admin.Server
                 if (b.User.Username == user)
                 {
                     await Context.Guild.RemoveBanAsync(b.User as IUser);
-                    var msgUser = await b.User.GetOrCreateDMChannelAsync();
-                    await msgUser.SendMessageAsync("", false, builder.Build());
-                    await msgUser.CloseAsync();
+                    await MessageUserNotice(b.User, builder);
                     await Context.Channel.SendMessageAsync("", false, builder.Build());
                 }
             }
         }
 
         // This probably should go in the Utilities 
-        private async Task MessageUserNotice(IGuildUser user, EmbedBuilder builder)
+        private async Task MessageUserNotice(IUser user, EmbedBuilder builder)
         {
             var msgUser = await user.GetOrCreateDMChannelAsync();
             await msgUser.SendMessageAsync("", false, builder.Build());

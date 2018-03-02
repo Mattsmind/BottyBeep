@@ -18,11 +18,12 @@ namespace BottyBeep.Admin.User
             string joinedDate = user.JoinedAt.ToString();
             string username = user.Username;
             string nickname = user.Nickname;
+            string userID = user.Id.ToString();
             string userRoles = user.RoleIds.ToString();
 
             builder.WithTitle("User Information")
                 .WithColor(Color.Purple)
-                .WithDescription(String.Format("**Username**: {0}\n**Nickname**: {1}\n**Joined**: {2}\n**Roles**: {3}", username, nickname, joinedDate, userRoles));
+                .WithDescription(String.Format("**Username**: {0}\n**User ID**: {1}\n**Nickname**: {2}\n**Joined**: {3}\n**Roles**: {4}", username, userID, nickname, joinedDate, userRoles));
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
         }
