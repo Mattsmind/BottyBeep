@@ -1,15 +1,10 @@
-﻿using Discord;
-using Discord.WebSocket;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Discord.WebSocket;
 
 namespace BottyBeep.Core
 {
     class EventHandler
     {
         DiscordSocketClient _client;
-        //CommandHandler _handler;
         LogHandler _logger = new LogHandler();
 
         internal EventHandler(DiscordSocketClient client)

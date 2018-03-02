@@ -1,7 +1,5 @@
 ﻿using Discord;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BottyBeep.Core
@@ -22,7 +20,8 @@ namespace BottyBeep.Core
 
         public async Task LogAsync(string source, string msg)
         {
-            Console.WriteLine("[{0}] {1}:{2}", DateTime.Now.ToLongTimeString(), source, msg);
+            source = source.PadRight(15);
+            Console.WriteLine("[{0}] {1}{2}", DateTime.Now.ToLongTimeString(), source, msg);
             Console.ResetColor();
             await Task.CompletedTask;
         }
