@@ -80,7 +80,7 @@ namespace BottyBeep.Modules.Toys
 
                 // Ask again later
                 case 12:
-                    result = "Asl again later.";
+                    result = "Ask again later.";
                     break;
 
                 // Better not tell you now
