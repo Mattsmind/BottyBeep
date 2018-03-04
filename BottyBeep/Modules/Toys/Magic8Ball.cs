@@ -131,7 +131,7 @@ namespace BottyBeep.Modules.Toys
 
 
             builder.WithTitle("Magic 8 Ball")
-                .WithDescription(String.Format("{0} asks {1}...\n\n**{2}**", Context.User.Mention, question, result))
+                .WithDescription(String.Format("{0} asks _\"{1}\"_...\n\n**{2}**", Context.User.Mention, question, result))
                 .WithColor(Color.Orange);
 
             await Context.Channel.SendMessageAsync("", false, builder.Build());
