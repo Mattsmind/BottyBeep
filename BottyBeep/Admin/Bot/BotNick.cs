@@ -10,11 +10,11 @@ namespace BottyBeep.Admin.Bot
     {
         [RequireOwner]
         [Command("botnick")]
-        public async Task ChangeBotNickAsync(string _nick = "")
+        public async Task ChangeBotNickAsync(string nick = "")
         {
-            await Context.Guild.CurrentUser.ModifyAsync(nick =>
+            await Context.Guild.CurrentUser.ModifyAsync(bot =>
             {
-                nick.Nickname = _nick;
+                bot.Nickname = nick;
             });
         }
     }
