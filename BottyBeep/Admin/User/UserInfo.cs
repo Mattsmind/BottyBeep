@@ -10,8 +10,13 @@ namespace BottyBeep.Admin.User
     {
         [RequireUserPermission(GuildPermission.KickMembers)]
         [Command("userinfo")]
-        public async Task GetUserInfoAsync(IGuildUser user)
+        public async Task GetUserInfoAsync(IGuildUser user = null)
         {
+            if (user == null)
+            {
+                user = Context.User as IGuildUser;
+            }
+
             EmbedBuilder builder = new EmbedBuilder();
 
             string joinedDate = user.JoinedAt.ToString();
