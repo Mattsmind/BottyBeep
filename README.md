@@ -1,5 +1,6 @@
 # Botty Beep
-A Discord Bot.
+A Modular Discord Bot. Built using [discord.NET](https://github.com/discord-net/Discord.Net).
 
 # Technologies
-Botty is a C# application built around discord.NET. It was created to be modular and add some fun toys to discord servers. 
+Botty is a C# application built to be a modular bot to add some fun toys to discord servers. 
+
